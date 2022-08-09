@@ -1,0 +1,12 @@
+{
+  "name": "nodejs-web-server",
+  "version": "0.0.1",
+  "description": "Belajar back-end dicoding",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
