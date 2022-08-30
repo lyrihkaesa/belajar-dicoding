@@ -1,13 +1,3 @@
-node_modules
-
-# Files and directories created by pub.
-dart_tool/
-packages
-
-# Conventional directory for build output.
-build/
-
-
 # Miscellaneous
 *.class
 *.log
@@ -18,6 +8,7 @@ build/
 .buildlog/
 .history
 .svn/
+migrate_working_dir/
 
 # IntelliJ related
 *.iml
@@ -39,7 +30,7 @@ build/
 .packages
 .pub-cache/
 .pub/
-build/
+/build/
 
 # Web related
 lib/generated_plugin_registrant.dart
@@ -51,7 +42,6 @@ app.*.symbols
 app.*.map.json
 
 # Android Studio will place build artifacts here
-android/app/debug
-android/app/profile
-android/app/release
-
+/android/app/debug
+/android/app/profile
+/android/app/release
