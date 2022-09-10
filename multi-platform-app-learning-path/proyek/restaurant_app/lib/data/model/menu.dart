@@ -1,9 +1,8 @@
-import 'package:restaurant_app/data/model/drink.dart';
-import 'package:restaurant_app/data/model/food.dart';
+import 'package:restaurant_app/data/model/item.dart';
 
 class MenuModel {
-  final List<FoodModel> foods;
-  final List<DrinkModel> drinks;
+  final List<ItemModel> foods;
+  final List<ItemModel> drinks;
 
   MenuModel({
     required this.foods,
@@ -11,7 +10,13 @@ class MenuModel {
   });
 
   factory MenuModel.fromJson(Map<String, dynamic> json) => MenuModel(
-        foods: parseFood(json['foods']),
-        drinks: parseDrink(json['drinks']),
+        foods: json['foods'] == null
+            ? []
+            : List<ItemModel>.from(
+                json['foods'].map((x) => ItemModel.fromJson(x))),
+        drinks: json['foods'] == null
+            ? []
+            : List<ItemModel>.from(
+                json['drinks'].map((x) => ItemModel.fromJson(x))),
       );
 }
