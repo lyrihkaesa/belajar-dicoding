@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/common/styles.dart';
+import 'package:restaurant_app/provider/database_provider.dart';
 import 'package:restaurant_app/utils/result_state.dart';
-import 'package:restaurant_app/provider/search_restaurants_provider.dart';
 import 'package:restaurant_app/ui/restaurant_list_page.dart';
 
-class RestaurantSearchPage extends StatelessWidget {
-  static const routeName = '/search';
+class RestaurantFavoritePage extends StatelessWidget {
+  static const routeName = '/favorite';
 
-  const RestaurantSearchPage({super.key});
+  const RestaurantFavoritePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +22,15 @@ class RestaurantSearchPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               const Text(
-                'Cari',
+                'Favorit',
                 style: TextStyle(
                   color: Colors.white,
                 ),
               ),
               FittedBox(
-                child: Consumer<SearchRestaurantsProvider>(
+                child: Consumer<DatabaseProvider>(
                   builder: (context, value, child) => Text(
-                    '${value.result.founded} restoran.',
+                    '${value.favorites.length} restoran.',
                     style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 12,
@@ -44,41 +44,10 @@ class RestaurantSearchPage extends StatelessWidget {
           ),
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: TextField(
-                autofocus: true,
-                onChanged: (value) {
-                  var search = Provider.of<SearchRestaurantsProvider>(context,
-                      listen: false);
-                  search.setQuery(value.trim());
-                  search.searchRestaurant();
-                },
-                style: const TextStyle(
-                  fontSize: 12,
-                ),
-                cursorColor: Theme.of(context).colorScheme.secondary,
-                decoration: InputDecoration(
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide.none,
-                  ),
-                  hintText: "Cari nama, kategori, dan menu.",
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  hintStyle: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-            ),
             Expanded(
-              child: Consumer<SearchRestaurantsProvider>(
+              child: Consumer<DatabaseProvider>(
                 builder: (context, value, _) {
                   if (value.state == ResultState.loading) {
                     return Center(
@@ -98,13 +67,12 @@ class RestaurantSearchPage extends StatelessWidget {
                         ),
                       ),
                     );
-                  } else if (value.state == ResultState.hasData ||
-                      value.query == "") {
+                  } else if (value.state == ResultState.hasData) {
                     return ListView.builder(
                       shrinkWrap: true,
-                      itemCount: value.result.restaurants.length,
+                      itemCount: value.favorites.length,
                       itemBuilder: (context, index) {
-                        var restaurant = value.result.restaurants[index];
+                        var restaurant = value.favorites[index];
                         return buildRestaurantItem(context, restaurant);
                       },
                     );
@@ -113,16 +81,16 @@ class RestaurantSearchPage extends StatelessWidget {
                       child: FittedBox(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.question_mark_outlined,
+                          children: const [
+                            Icon(
+                              Icons.no_meals_rounded,
                               color: primaryColor,
                               size: 50,
                             ),
-                            const SizedBox(
+                            SizedBox(
                               height: 10,
                             ),
-                            Text('"${value.query}" tidak ditemukan.'),
+                            Text('Tidak ada restoran favorit.'),
                           ],
                         ),
                       ),
@@ -132,8 +100,7 @@ class RestaurantSearchPage extends StatelessWidget {
                       padding: EdgeInsets.all(20.0),
                       child: Center(
                         child: FittedBox(
-                          child: Text(
-                              'Gagal terhubung ke server. Pastikan Anda terkonkesi internet!'),
+                          child: Text('Gagal memuat data pada database!'),
                         ),
                       ),
                     );
@@ -150,24 +117,6 @@ class RestaurantSearchPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class TitleListRestourant extends StatelessWidget {
-  const TitleListRestourant({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var search = Provider.of<SearchRestaurantsProvider>(context);
-    return Container(
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-      child: Text(
-        'Restoran (${search.result.founded})',
-        style: Theme.of(context).textTheme.headline6,
       ),
     );
   }

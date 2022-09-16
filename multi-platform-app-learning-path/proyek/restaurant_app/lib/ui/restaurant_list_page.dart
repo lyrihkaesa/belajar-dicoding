@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/common/styles.dart';
 import 'package:restaurant_app/data/model/restaurant.dart';
+import 'package:restaurant_app/provider/detail_restaurant_provider.dart';
 import 'package:restaurant_app/provider/restaurant_provider.dart';
+import 'package:restaurant_app/utils/result_state.dart';
+import 'package:restaurant_app/provider/search_restaurants_provider.dart';
 import 'package:restaurant_app/ui/restaurant_detail_page.dart';
 import 'package:restaurant_app/ui/restaurant_search_page.dart';
+import 'package:restaurant_app/widgets/favorite_botton.dart';
 
 class RestaurantListPage extends StatelessWidget {
-  static const routeName = '/restaurant_list';
+  static const routeName = '/restaurants';
 
   const RestaurantListPage({super.key});
 
@@ -42,6 +46,7 @@ class RestaurantListPage extends StatelessWidget {
                 var search = Provider.of<SearchRestaurantsProvider>(context,
                     listen: false);
                 search.setQuery('');
+                search.searchRestaurant();
                 Navigator.pushNamed(context, RestaurantSearchPage.routeName);
               },
               icon: const Icon(
@@ -51,70 +56,68 @@ class RestaurantListPage extends StatelessWidget {
             ),
           ],
         ),
-        body: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Consumer<RestaurantsProvider>(
-            builder: (context, value, _) {
-              if (value.state == ResultState.loading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (value.state == ResultState.hasData) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: value.result.restaurants.length,
-                  itemBuilder: (context, index) {
-                    var restaurant = value.result.restaurants[index];
-                    return buildRestaurantItem(context, restaurant);
-                  },
-                );
-              } else if (value.state == ResultState.noData) {
-                return Center(
-                  child: Text(value.message),
-                );
-              } else if (value.state == ResultState.error) {
-                return Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.wifi_off_rounded,
-                          size: 50,
-                          color: primaryColor,
+        body: Consumer<RestaurantsProvider>(
+          builder: (context, value, _) {
+            if (value.state == ResultState.loading) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: primaryColor,
+                ),
+              );
+            } else if (value.state == ResultState.hasData) {
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: value.result.restaurants.length,
+                itemBuilder: (context, index) {
+                  var restaurant = value.result.restaurants[index];
+                  return buildRestaurantItem(context, restaurant);
+                },
+              );
+            } else if (value.state == ResultState.noData) {
+              return Center(
+                child: Text(value.message),
+              );
+            } else if (value.state == ResultState.error) {
+              return Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.wifi_off_rounded,
+                        size: 50,
+                        color: primaryColor,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        'Gagal terhubung ke server. Pastikan Anda terkonkesi internet!',
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          value.getAllRestaurant();
+                        },
+                        child: const Text(
+                          'Hubungkan kembali',
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Gagal terhubung ke server. Pastikan Anda terkonkesi internet!',
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            value.getAllRestaurant();
-                          },
-                          child: const Text(
-                            'Hubungkan kembali',
-                          ),
-                        )
-                      ],
-                    ),
+                      )
+                    ],
                   ),
-                );
-              } else {
-                return const Center(
-                  child:
-                      Text('Kesalahan memuat daftar restoran sedang terjadi!'),
-                );
-              }
-            },
-          ),
+                ),
+              );
+            } else {
+              return const Center(
+                child: Text('Kesalahan memuat daftar restoran sedang terjadi!'),
+              );
+            }
+          },
         ),
       ),
     );
@@ -147,7 +150,9 @@ Widget buildRestaurantItem(BuildContext context, Restaurant restaurant) {
               return const SizedBox(
                 width: 85,
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: primaryColor,
+                  ),
                 ),
               );
             }
@@ -198,6 +203,7 @@ Widget buildRestaurantItem(BuildContext context, Restaurant restaurant) {
             const Icon(
               Icons.star_rate_rounded,
               size: 18,
+              color: Colors.amber,
             ),
             const SizedBox(
               width: 3,
@@ -206,14 +212,15 @@ Widget buildRestaurantItem(BuildContext context, Restaurant restaurant) {
               restaurant.rating.toString(),
               style: const TextStyle(
                 fontSize: 12,
+                color: Colors.amber,
               ),
             ),
           ],
         ),
       ],
     ),
-    trailing: const Icon(
-      Icons.arrow_forward_ios_rounded,
+    trailing: FavoriteButton(
+      restaurant: restaurant,
     ),
     onTap: () {
       final detailRestaurant =

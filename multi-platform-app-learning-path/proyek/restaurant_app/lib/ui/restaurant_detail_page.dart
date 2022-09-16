@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
+import 'package:restaurant_app/common/styles.dart';
 import 'package:restaurant_app/data/model/item.dart';
-import 'package:restaurant_app/provider/restaurant_provider.dart';
+import 'package:restaurant_app/provider/detail_restaurant_provider.dart';
+import 'package:restaurant_app/utils/result_state.dart';
 import 'package:restaurant_app/widgets/category_card.dart';
 import 'package:restaurant_app/widgets/customer_review_card_list.dart';
 import 'package:restaurant_app/widgets/favorite_botton.dart';
 import 'package:restaurant_app/widgets/menu_item_card_list.dart';
 
 class RestaurantDetailPage extends StatelessWidget {
-  static const routeName = '/article_detail';
+  static const routeName = '/restaurant-detail';
 
   const RestaurantDetailPage({super.key});
 
@@ -60,7 +62,9 @@ class RestaurantDetailPage extends StatelessWidget {
                               return const SizedBox(
                                 height: 220,
                                 child: Center(
-                                  child: CircularProgressIndicator(),
+                                  child: CircularProgressIndicator(
+                                    color: primaryColor,
+                                  ),
                                 ),
                               );
                             }
@@ -88,7 +92,7 @@ class RestaurantDetailPage extends StatelessWidget {
                               },
                             ),
                           ),
-                          const FavoriteButton(),
+                          FavoriteButton(restaurant: restaurant.result),
                         ],
                       ),
                     ),

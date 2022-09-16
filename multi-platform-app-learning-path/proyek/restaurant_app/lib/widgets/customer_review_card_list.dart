@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/common/styles.dart';
 import 'package:restaurant_app/data/model/customer_review.dart';
-import 'package:restaurant_app/provider/restaurant_provider.dart';
+import 'package:restaurant_app/provider/detail_restaurant_provider.dart';
+import 'package:restaurant_app/utils/result_state.dart';
 import 'package:restaurant_app/widgets/icon_button_review.dart';
 import 'package:restaurant_app/widgets/review_card.dart';
 
@@ -45,7 +47,7 @@ class _CustomerReviewCardListState extends State<CustomerReviewCardList> {
             ? FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Card(
-                  color: Colors.red[200],
+                  color: Theme.of(context).colorScheme.errorContainer,
                   elevation: 3,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
@@ -53,6 +55,7 @@ class _CustomerReviewCardListState extends State<CustomerReviewCardList> {
                       "Gagal menambahkan review ${restaurant.messageReview}",
                       style: const TextStyle(
                         fontSize: 12,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -63,7 +66,9 @@ class _CustomerReviewCardListState extends State<CustomerReviewCardList> {
             ? const SizedBox(
                 height: 300,
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: primaryColor,
+                  ),
                 ),
               )
             : Scrollbar(

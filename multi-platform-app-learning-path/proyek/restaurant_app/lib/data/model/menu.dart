@@ -19,4 +19,9 @@ class MenuModel {
             : List<ItemModel>.from(
                 json['drinks'].map((x) => ItemModel.fromJson(x))),
       );
+
+  Map<String, dynamic> toJson() => {
+        "foods": foods,
+        "drinks": drinks,
+      };
 }

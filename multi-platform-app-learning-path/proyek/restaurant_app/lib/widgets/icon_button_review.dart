@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/common/styles.dart';
-import 'package:restaurant_app/provider/restaurant_provider.dart';
+import 'package:restaurant_app/provider/detail_restaurant_provider.dart';
 
 class OutlinedButtonReview extends StatelessWidget {
   const OutlinedButtonReview({
@@ -15,17 +14,20 @@ class OutlinedButtonReview extends StatelessWidget {
     return OutlinedButton.icon(
       label: MediaQuery.of(context).size.width <= 300
           ? const SizedBox.shrink()
-          : const FittedBox(
+          : FittedBox(
               fit: BoxFit.cover,
               child: Text(
                 'Tambah review',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.secondary,
                   fontWeight: FontWeight.w500,
                 ),
               ),
             ),
-      icon: const Icon(Icons.add_comment_rounded, color: Colors.black),
+      icon: Icon(
+        Icons.add_comment_rounded,
+        color: Theme.of(context).colorScheme.secondary,
+      ),
       onPressed: () {
         showModalBottomSheet(
           context: context,
@@ -35,128 +37,126 @@ class OutlinedButtonReview extends StatelessWidget {
               top: Radius.circular(20),
             ),
           ),
-          builder: (context) {
-            return Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Beri Review',
-                        style: TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.15,
-                          color: primaryColor,
+          builder: (context) => Container(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: SingleChildScrollView(
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Beri Review',
+                          style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.15,
+                          ),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.close,
+                            ))
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextField(
+                      autofocus: true,
+                      onChanged: (value) {
+                        detailRestaurant.setName(value);
+                      },
+                      style: const TextStyle(
+                        fontSize: 12,
+                      ),
+                      cursorColor: Theme.of(context).colorScheme.secondary,
+                      decoration: InputDecoration(
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        hintText: "Nama",
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                        hintStyle: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(
-                            Icons.close,
-                            color: primaryColor,
-                          ))
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextField(
-                    autofocus: true,
-                    onChanged: (value) {
-                      detailRestaurant.setName(value);
-                    },
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Theme.of(context).colorScheme.primary,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
                     ),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: primaryColorBackground,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: "Nama",
-                      prefixIcon: Icon(
-                        Icons.person,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      hintStyle: const TextStyle(
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TextField(
+                      onChanged: (value) {
+                        detailRestaurant.setReview(value);
+                      },
+                      style: const TextStyle(
                         fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                        color: primaryColorSoft,
                       ),
-                    ),
-                    keyboardType: TextInputType.name,
-                    textInputAction: TextInputAction.next,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  TextField(
-                    onChanged: (value) {
-                      detailRestaurant.setReview(value);
-                    },
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    keyboardType: TextInputType.multiline,
-                    textInputAction: TextInputAction.done,
-                    maxLines: MediaQuery.of(context).size.height <= 640 ? 2 : 4,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: primaryColorBackground,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide.none,
+                      keyboardType: TextInputType.multiline,
+                      textInputAction: TextInputAction.done,
+                      maxLines:
+                          MediaQuery.of(context).size.height <= 640 ? 2 : 4,
+                      cursorColor: Theme.of(context).colorScheme.secondary,
+                      decoration: InputDecoration(
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        hintText:
+                            'Berikan review seperti "Makanan dan minumannya enak".',
+                        hintStyle: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
-                      hintText:
-                          'Berikan review seperti "Makanan dan minumannya enak".',
-                      hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.normal,
-                        color: primaryColorSoft,
-                      ),
+                      onSubmitted: (value) {
+                        detailRestaurant.sendReview();
+                        Navigator.pop(context);
+                      },
                     ),
-                    onSubmitted: (value) {
-                      detailRestaurant.sendReview();
-                      Navigator.pop(context);
-                    },
-                  ),
-                  SizedBox(
-                    height:
-                        MediaQuery.of(context).viewInsets.bottom > 100 ? 0 : 10,
-                  ),
-                  MediaQuery.of(context).viewInsets.bottom > 100
-                      ? const SizedBox.shrink()
-                      : Row(
-                          children: [
-                            Expanded(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  detailRestaurant.sendReview();
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('Kirim'),
+                    SizedBox(
+                      height: MediaQuery.of(context).viewInsets.bottom > 100
+                          ? 0
+                          : 10,
+                    ),
+                    MediaQuery.of(context).viewInsets.bottom > 100
+                        ? const SizedBox.shrink()
+                        : Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    detailRestaurant.sendReview();
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Kirim'),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                  SizedBox(
-                    height: MediaQuery.of(context).viewInsets.bottom + 10,
-                  ),
-                ],
+                            ],
+                          ),
+                  ],
+                ),
               ),
-            );
-          },
+            ),
+          ),
         );
       },
     );

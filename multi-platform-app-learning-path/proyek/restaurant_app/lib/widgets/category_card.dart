@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/common/styles.dart';
 
 class CategoryItemCardList extends StatefulWidget {
   final List<dynamic> items;
@@ -29,7 +28,7 @@ class _CategoryItemCardListState extends State<CategoryItemCardList> {
           itemCount: widget.items.length,
           itemBuilder: (context, index) {
             return Card(
-              color: primaryColorSoft,
+              color: Theme.of(context).colorScheme.secondary,
               elevation: 3,
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
@@ -40,6 +39,7 @@ class _CategoryItemCardListState extends State<CategoryItemCardList> {
                     style: const TextStyle(
                       fontSize: 12,
                       height: 1.1,
+                      color: Colors.white,
                     ),
                   ),
                 ),

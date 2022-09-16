@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/common/styles.dart';
 import 'package:restaurant_app/data/model/customer_review.dart';
 
 class CardReview extends StatelessWidget {
@@ -13,7 +12,6 @@ class CardReview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: primaryColorBackground,
       elevation: 3,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
