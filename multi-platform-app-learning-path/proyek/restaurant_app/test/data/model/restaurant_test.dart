@@ -5,41 +5,37 @@ import 'package:restaurant_app/data/model/restaurant.dart';
 
 void main() {
   group('Restaurant', () {
+    // arrange
+    final restorantJson = {
+      "id": "id",
+      "name": "name",
+      "description": "description",
+      "pictureId": "pictureId",
+      "city": "city",
+      "rating": 5.0,
+      "address": "address",
+    };
+
+    final restaurant = Restaurant(
+      id: 'id',
+      name: 'name',
+      description: 'description',
+      pictureId: 'pictureId',
+      city: 'city',
+      rating: 5,
+      address: 'address',
+      categories: [],
+      menus: MenuModel(drinks: [], foods: []),
+      customerReviews: [],
+    );
+
     test('Restaurant.toJson', () async {
-      final restaurant = Restaurant(
-        id: 'id',
-        name: 'name',
-        description: 'description',
-        pictureId: 'pictureId',
-        city: 'city',
-        rating: 5,
-        address: 'address',
-        categories: [],
-        menus: MenuModel(drinks: [], foods: []),
-        customerReviews: [],
-      );
-      expect(restaurant.toJson(), {
-        "id": "id",
-        "name": "name",
-        "description": "description",
-        "pictureId": "pictureId",
-        "city": "city",
-        "rating": 5.0,
-        "address": "address",
-      });
+      // assert
+      expect(restaurant.toJson(), restorantJson);
     });
     test('Restaurant.fromJson', () async {
-      Map<String, dynamic> restaurantJson = {
-        "id": "id",
-        "name": "name",
-        "description": "description",
-        "pictureId": "pictureId",
-        "city": "city",
-        "rating": 5.0,
-        "address": "address",
-      };
-
-      expect(Restaurant.fromJson(restaurantJson), isA<Restaurant>());
+      // assert
+      expect(Restaurant.fromJson(restorantJson), isA<Restaurant>());
     });
   });
 }

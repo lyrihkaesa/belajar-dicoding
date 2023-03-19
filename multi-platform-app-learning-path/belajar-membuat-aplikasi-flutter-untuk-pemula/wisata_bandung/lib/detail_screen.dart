@@ -195,7 +195,7 @@ class _DetailWebPageState extends State<DetailWebPage> {
                           ),
                           SizedBox(height: 16),
                           Scrollbar(
-                            isAlwaysShown: true,
+                            isAlwaysShown: true, 
                             controller: _scrollController,
                             child: Container(
                               height: 150,
