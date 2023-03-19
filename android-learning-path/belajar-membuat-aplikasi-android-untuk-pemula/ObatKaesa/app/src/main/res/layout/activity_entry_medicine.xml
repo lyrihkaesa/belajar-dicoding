@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".activity.EntryMedicine">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/entry_data_medicine"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:background="@color/emerald_200"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kode Obat"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/code_medicine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Isi dengan kode obat!"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nama Obat"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/name_medicine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Isi dengan nama obat!"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Type"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/type_medicine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Isi dengan Type obat!"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Harga"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/price_medicine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Isi dengan harga obat!"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jumlah Stok"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/quantity_medicine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Isi dengan stok obat!"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:onClick="SaveMedicine"
+            android:text="save"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:onClick="Cancel"
+            android:text="cancel"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+</LinearLayout>
