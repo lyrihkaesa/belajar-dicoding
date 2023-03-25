@@ -3,7 +3,9 @@ package com.dicoding.obatkaesa.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Medicine implements Parcelable {
 
@@ -13,7 +15,6 @@ public class Medicine implements Parcelable {
     private Double price;
     private String imgUrl;
     private String description;
-    private ArrayList<String> benefit;
     private Integer quantity;
 
     public String getUuid() {
@@ -48,6 +49,13 @@ public class Medicine implements Parcelable {
         this.price = price;
     }
 
+    public String getPriceCurrencyId() {
+        // Mengubah format price tipe data double "1000" ke string currency indonesia "Rp1.000"
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+        format.setMaximumFractionDigits(0);
+        return format.format(this.price);
+    }
+
     public String getImgUrl() {
         return imgUrl;
     }
@@ -62,14 +70,6 @@ public class Medicine implements Parcelable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public ArrayList<String> getBenefit() {
-        return benefit;
-    }
-
-    public void setBenefit(ArrayList<String> benefit) {
-        this.benefit = benefit;
     }
 
     public Integer getQuantity() {

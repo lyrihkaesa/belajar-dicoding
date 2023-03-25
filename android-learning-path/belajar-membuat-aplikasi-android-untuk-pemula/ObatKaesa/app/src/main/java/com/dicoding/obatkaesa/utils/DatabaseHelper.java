@@ -10,11 +10,12 @@ import androidx.annotation.Nullable;
 
 import com.dicoding.obatkaesa.model.Medicine;
 
+import java.util.ArrayList;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public final static String databaseName = "db_obat_kaesa";
     public final static String tableMedicine = "medicine";
-
     public final static String fieldCode = "code";
     public final static String fieldName = "name";
     public final static String fieldType = "type";
@@ -56,7 +57,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor ReadData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor response = db.rawQuery("SELECT * FROM " + tableMedicine, null);
-        return  response;
+        return db.rawQuery("SELECT * FROM " + tableMedicine, null);
+    }
+
+    public ArrayList<Medicine> getAllMedicines() {
+        ArrayList<Medicine> medicineArrayList = new ArrayList<>();
+        Cursor cursor = ReadData();
+        while (cursor.moveToNext()) {
+            Medicine medicine = new Medicine();
+            medicine.setUuid(cursor.getString(0));
+            medicine.setName(cursor.getString(1));
+            medicine.setType(cursor.getString(2));
+            medicine.setPrice(Double.valueOf(cursor.getString(3)));
+            medicine.setImgUrl(cursor.getString(4));
+            medicine.setDescription(cursor.getString(5));
+            medicine.setQuantity(Integer.valueOf(cursor.getString(6)));
+
+            medicineArrayList.add(medicine);
+        }
+        return medicineArrayList;
     }
 }

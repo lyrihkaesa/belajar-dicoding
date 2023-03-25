@@ -1,5 +1,6 @@
 package com.dicoding.obatkaesa.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dicoding.obatkaesa.R;
+import com.dicoding.obatkaesa.activity.DetailMedicine;
 import com.dicoding.obatkaesa.model.Medicine;
 
 import java.text.NumberFormat;
@@ -36,11 +38,13 @@ public class MedicineRecyclerViewAdapter extends RecyclerView.Adapter<MedicineRe
         Medicine medicine = medicineArrayList.get(position);
         Glide.with(holder.itemView.getContext()).load(medicine.getImgUrl()).into(holder.imgPhoto);
         holder.tvName.setText(medicine.getName());
+        holder.tvPrice.setText(medicine.getPriceCurrencyId());
 
-        // Mengubah format price tipe data double "1000" ke string currency indonesia "Rp1.000"
-        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
-        format.setMaximumFractionDigits(0);
-        holder.tvPrice.setText(format.format(medicine.getPrice()));
+        holder.itemView.setOnClickListener(v -> {
+            Intent intentDetail = new Intent(holder.itemView.getContext(), DetailMedicine.class);
+            intentDetail.putExtra("key_medicine", medicineArrayList.get(holder.getAdapterPosition()));
+            holder.itemView.getContext().startActivity(intentDetail);
+        });
     }
 
     @Override
