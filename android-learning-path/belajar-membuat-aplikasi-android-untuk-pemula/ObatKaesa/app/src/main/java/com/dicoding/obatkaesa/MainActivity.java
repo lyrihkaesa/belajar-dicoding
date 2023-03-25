@@ -6,10 +6,10 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.obatkaesa.activity.EntryMedicine;
 import com.dicoding.obatkaesa.adapter.MedicineRecyclerViewAdapter;
+import com.dicoding.obatkaesa.databinding.ActivityMainBinding;
 import com.dicoding.obatkaesa.model.Medicine;
 import com.dicoding.obatkaesa.utils.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,8 +20,8 @@ import java.util.Random;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
+    private ActivityMainBinding binding;
     DatabaseHelper databaseHelper;
-    private RecyclerView rvMedicines;
     private final ArrayList<Medicine> list = new ArrayList<>();
     private static final String PREFS = "prefs_obatkaesa";
     private static final String PREF_APP_FIRST_RUN = "isAppFirstRun";
@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         Objects.requireNonNull(getSupportActionBar()).setTitle("Daftar Obat");
 
@@ -43,12 +44,9 @@ public class MainActivity extends AppCompatActivity {
             settings.edit().putBoolean(PREF_APP_FIRST_RUN, false).apply();
         }
 
-
-        rvMedicines = findViewById(R.id.rv_medicines);
-        rvMedicines.setHasFixedSize(true);
+        binding.rvMedicines.setHasFixedSize(true);
 
         list.clear();
-
         list.addAll(databaseHelper.getAllMedicines());
         showRecyclerList();
 
@@ -60,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showRecyclerList() {
-        rvMedicines.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvMedicines.setLayoutManager(new LinearLayoutManager(this));
         MedicineRecyclerViewAdapter medicineRecyclerViewAdapter = new MedicineRecyclerViewAdapter(list);
-        rvMedicines.setAdapter(medicineRecyclerViewAdapter);
+        binding.rvMedicines.setAdapter(medicineRecyclerViewAdapter);
 //        medicineRecyclerViewAdapter.setOnItemClickCallback(this::showSelectedHero);
     }
 

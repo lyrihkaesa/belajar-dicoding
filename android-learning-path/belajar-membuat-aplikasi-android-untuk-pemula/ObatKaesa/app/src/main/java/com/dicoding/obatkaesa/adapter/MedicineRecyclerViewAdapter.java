@@ -2,22 +2,17 @@ package com.dicoding.obatkaesa.adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.dicoding.obatkaesa.R;
 import com.dicoding.obatkaesa.activity.DetailMedicine;
+import com.dicoding.obatkaesa.databinding.ItemRowMedicineBinding;
 import com.dicoding.obatkaesa.model.Medicine;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class MedicineRecyclerViewAdapter extends RecyclerView.Adapter<MedicineRecyclerViewAdapter.MedicineRecyclerViewHolder> {
     private final ArrayList<Medicine> medicineArrayList;
@@ -29,16 +24,16 @@ public class MedicineRecyclerViewAdapter extends RecyclerView.Adapter<MedicineRe
     @NonNull
     @Override
     public MedicineRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_medicine, parent, false);
-        return new MedicineRecyclerViewHolder(view);
+        ItemRowMedicineBinding binding = ItemRowMedicineBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new MedicineRecyclerViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MedicineRecyclerViewHolder holder, int position) {
         Medicine medicine = medicineArrayList.get(position);
-        Glide.with(holder.itemView.getContext()).load(medicine.getImgUrl()).into(holder.imgPhoto);
-        holder.tvName.setText(medicine.getName());
-        holder.tvPrice.setText(medicine.getPriceCurrencyId());
+        Glide.with(holder.itemView.getContext()).load(medicine.getImgUrl()).into(holder.binding.imgItemPhoto);
+        holder.binding.tvItemName.setText(medicine.getName());
+        holder.binding.tvItemPrice.setText(medicine.getPriceCurrencyId());
 
         holder.itemView.setOnClickListener(v -> {
             Intent intentDetail = new Intent(holder.itemView.getContext(), DetailMedicine.class);
@@ -54,14 +49,12 @@ public class MedicineRecyclerViewAdapter extends RecyclerView.Adapter<MedicineRe
 
     // Class Holder untuk List Medicine RecyclerView
     public static class MedicineRecyclerViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgPhoto;
-        TextView tvName, tvPrice;
 
-        public MedicineRecyclerViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imgPhoto = itemView.findViewById(R.id.img_item_photo);
-            tvName = itemView.findViewById(R.id.tv_item_name);
-            tvPrice = itemView.findViewById(R.id.tv_item_price);
+        ItemRowMedicineBinding binding;
+
+        public MedicineRecyclerViewHolder(@NonNull ItemRowMedicineBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }

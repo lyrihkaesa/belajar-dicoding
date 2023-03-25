@@ -34,7 +34,7 @@ public class Medicine implements Parcelable {
     }
 
     public String getType() {
-        return type;
+        return type.substring(0,1).toUpperCase() + type.substring(1).toLowerCase();
     }
 
     public void setType(String type) {
