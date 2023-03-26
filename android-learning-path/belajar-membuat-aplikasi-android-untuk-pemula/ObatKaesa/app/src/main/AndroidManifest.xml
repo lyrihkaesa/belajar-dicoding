@@ -14,23 +14,30 @@
         android:theme="@style/Theme.ObatKaesa"
         tools:targetApi="31">
         <activity
+            android:name=".activity.About"
+            android:parentActivityName=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.SplashScreenActivity"
-            android:theme="@style/SplashScreenStyle"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/SplashScreenStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.EntryMedicine"
+            android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".activity.DetailMedicine"
+            android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

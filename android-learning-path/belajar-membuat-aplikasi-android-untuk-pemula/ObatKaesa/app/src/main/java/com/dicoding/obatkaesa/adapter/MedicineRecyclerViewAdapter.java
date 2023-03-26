@@ -1,6 +1,5 @@
 package com.dicoding.obatkaesa.adapter;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -8,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.dicoding.obatkaesa.activity.DetailMedicine;
 import com.dicoding.obatkaesa.databinding.ItemRowMedicineBinding;
 import com.dicoding.obatkaesa.model.Medicine;
 
@@ -16,10 +14,16 @@ import java.util.ArrayList;
 
 public class MedicineRecyclerViewAdapter extends RecyclerView.Adapter<MedicineRecyclerViewAdapter.MedicineRecyclerViewHolder> {
     private final ArrayList<Medicine> medicineArrayList;
+    private OnItemClickCallback onItemClickCallback;
 
     public MedicineRecyclerViewAdapter(ArrayList<Medicine> medicineArrayList) {
         this.medicineArrayList = medicineArrayList;
     }
+
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
+    }
+
 
     @NonNull
     @Override
@@ -35,11 +39,7 @@ public class MedicineRecyclerViewAdapter extends RecyclerView.Adapter<MedicineRe
         holder.binding.tvItemName.setText(medicine.getName());
         holder.binding.tvItemPrice.setText(medicine.getPriceCurrencyId());
 
-        holder.itemView.setOnClickListener(v -> {
-            Intent intentDetail = new Intent(holder.itemView.getContext(), DetailMedicine.class);
-            intentDetail.putExtra("key_medicine", medicineArrayList.get(holder.getAdapterPosition()));
-            holder.itemView.getContext().startActivity(intentDetail);
-        });
+        holder.itemView.setOnClickListener(view -> onItemClickCallback.onItemClicked(medicineArrayList.get(position)));
     }
 
     @Override
@@ -56,5 +56,9 @@ public class MedicineRecyclerViewAdapter extends RecyclerView.Adapter<MedicineRe
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    public interface OnItemClickCallback {
+        void onItemClicked(Medicine data);
     }
 }

@@ -2,11 +2,18 @@ package com.dicoding.obatkaesa;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.dicoding.obatkaesa.activity.About;
+import com.dicoding.obatkaesa.activity.DetailMedicine;
 import com.dicoding.obatkaesa.activity.EntryMedicine;
 import com.dicoding.obatkaesa.adapter.MedicineRecyclerViewAdapter;
 import com.dicoding.obatkaesa.databinding.ActivityMainBinding;
@@ -58,10 +65,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showRecyclerList() {
-        binding.rvMedicines.setLayoutManager(new LinearLayoutManager(this));
+        // Mengatur layout grid/linear pada RecyclerView dalam Vertical/Landscape
+        if (getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            binding.rvMedicines.setLayoutManager(new GridLayoutManager(this, 2));
+        } else {
+            binding.rvMedicines.setLayoutManager(new LinearLayoutManager(this));
+        }
+
+        // Inisialisasi adapter untuk RecyclerView
         MedicineRecyclerViewAdapter medicineRecyclerViewAdapter = new MedicineRecyclerViewAdapter(list);
+
+        // Menyambungkan adapter diatas ke RecyclerView pada XML.
         binding.rvMedicines.setAdapter(medicineRecyclerViewAdapter);
-//        medicineRecyclerViewAdapter.setOnItemClickCallback(this::showSelectedHero);
+
+        // onClick pindah ke DetailMedicine, dengan membawa data: Medicine
+        medicineRecyclerViewAdapter.setOnItemClickCallback(data -> {
+            Intent intentDetail = new Intent(MainActivity.this, DetailMedicine.class);
+            intentDetail.putExtra("key_medicine", data);
+            startActivity(intentDetail);
+        });
     }
 
     private void addListStringMedicineToDatabase() {
@@ -89,6 +111,20 @@ public class MainActivity extends AppCompatActivity {
             // insert object medicine/obat ke database
             databaseHelper.insertMedicine(medicine);
         }
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.about_page_item_menu) {
+            Intent intent = new Intent(MainActivity.this, About.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
