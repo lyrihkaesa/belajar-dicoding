@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.about_page_item_menu) {
+        if (item.getItemId() == R.id.about_page) {
             Intent intent = new Intent(MainActivity.this, About.class);
             startActivity(intent);
         }
