@@ -21,6 +21,8 @@
         <item>Acetylcysteine 200 mg 10 Kapsul</item>
         <item>Dapyrin 500 mg 10 Tablet</item>
         <item>Acitral Suspensi 120 ml</item>
+        <item>Orezinc Sirup 60 ml</item>
+        <item>Fluimucil 200 mg 10 Kapsul</item>
     </string-array>
     <string-array name="data_type">
         <item>tablet</item>
@@ -33,6 +35,8 @@
         <item>kapsul</item>
         <item>tablet</item>
         <item>sirup</item>
+        <item>sirup</item>
+        <item>kapsul</item>
     </string-array>
     <string-array name="data_description">
         <item>Sumagesic tablet adalah obat yang digunakan untuk meringankan rasa sakit, seperti sakit kepala, sakit gigi, nyeri otot, radang sendi atau arthritis, dan kram menstruasi. Selain itu, obat ini pun digunakan untuk menurunkan demam. Sumagesic tablet mengandung paracetamol sebagai zat aktifnya. Paracetamol memiliki aktivitas analgesik atau meredakan rasa sakit dan antipiretik atau menurunkan suhu tubuh. Obat ini merupakan golongan obat bebas, sehingga untuk mendapatkannya tidak memerlukan resep dokter. Akan tetapi, penggunaan obat ini harus tetap mengikuti aturan pakai yang tertera pada kemasan.</item>
@@ -45,6 +49,8 @@
         <item>Acetylcysteine Kapsul merupakan obat yang digunakan untuk mengatasi serta mengencerkan dahak di saluran pernapasan akibat penyakit paru-paru, seperti bronkitis, tuberkulosis, pneumonia (radang paru-paru yang disebabkan oleh infeksi), serta cystic fibrosis (penyakit keturunan yang menyebabkan lendir di dalam tubuh menjadi kental dan lengket). Acetylcysteine Kapsul juga mengatasi keracunan akibat konsumsi paracetamol. Obat ini mengandung zat aktif N-acetylcysteine dan tergolong obat bebas terbatas, sehingga frekuensi penggunaannya harus sesuai dengan kemasan atau anjuran dokter, apoteker, atau tenaga kesehatan lainnya.</item>
         <item>Pyridine adalah obat keras yang mengandung paracetamol dan bermanfaat dalam meringankan rasa sakit seperti sakit kepala, sakit gigi dan menurunkan demam. Obat ini hanya dapat dibeli dengan menggunakan resep dokter.</item>
         <item>Acitral suspensi adalah obat untuk mengatasi kondisi yang disebabkan berlebihnya asam lambung, seperti tukak atau luka pada lambung dan usus dua belas jari, serta gastritis. Obat ini akan meringankan gejala yang ditimbulkan gangguan pencernaan tersebut, misalnya mual, muntah, perut kembung, nyeri pada ulu hati, dan nyeri lambung. Acitral suspensi mengandung zat aktif aluminium hidroksida atau Al (OH)3, magnesium hidroksida atau Mg (OH)2, dan simethicone. Kombinasi aluminium hidroksida, magnesium hidroksida, dan simethicone yang terkandung dalam juga dapat digunakan untuk meredakan kembung yang disebabkan gas atau ketidaknyamanan perut yang disebabkan makan atau minum terlalu banyak. Obat ini merupakan obat bebas yang tidak memerlukan resep dokter.</item>
+        <item>Orezinc Sirup merupakan obat yang digunakan untuk mengatasi diare pada anak. Orezinc Sirup mengandung zinc yang bermanfaat untuk meringankan gejala diare pada anak sekaligus mempercepat penyembuhannya. Zinc juga berfungsi untuk mencegah anak terkena diare, disentri, dan infeksi saluran pernapasan. Selain itu, zinc juga berperan dalam menjaga metabolisme tubuh seperti membantu proses sintesis protein, pertumbuhan sel, menjaga kesimbangan air, dan elektrolit tubuh. Selain melalui obat, zinc juga dapat diperoleh melalui beberapa makanan seperti daging, ayam, tiram, kacang, susu dan keju.</item>
+        <item>Fluimucil adalah obat yang digunakan untuk mengobati infeksi saluran pernapasan yang disertai dahak kental. Misalnya, bronkitis akut atau kronis, dan emfisema paru atau penyakit paru-paru yang menyebabkan napas menjadi lebih pendek. Obat ini juga dapat mengatasi infeksi pernapasan lain, seperti fibrosis kistik atau kelainan bawaan yang menyebabkan terbentuknya lendir kental di paru-paru dan sistem pencernaan serta bronkiektasis atau gangguan yang menyebabkan bronkus atau saluran udara melebar, menebal, dan rusak secara permanen. Fluimucil mengandung zat aktif N-acetylcysteine. Obat ini merupakan obat bebas terbatas, sehingga frekuensi penggunaannya harus sesuai petunjuk pada kemasan atau anjuran dokter, apoteker, atau tenaga kesehatan lainnya.</item>
     </string-array>
     <integer-array name="data_price">
         <item>2425</item>
@@ -57,6 +63,8 @@
         <item>6500</item>
         <item>2300</item>
         <item>32000</item>
+        <item>30000</item>
+        <item>70000</item>
     </integer-array>
     <string-array name="data_img_url">
         <item>https://lyrihkaesa.github.io/img/medicine/sumagesic-4-tablet.jpeg</item>
@@ -69,5 +77,7 @@
         <item>https://lyrihkaesa.github.io/img/medicine/acetylcysteine-200-mg-10-kapsul.jpeg</item>
         <item>https://lyrihkaesa.github.io/img/medicine/dapyrin-500-mg-10-tablet.jpeg</item>
         <item>https://lyrihkaesa.github.io/img/medicine/acitral-suspensi-120-ml.jpeg</item>
+        <item>https://lyrihkaesa.github.io/img/medicine/orezinc-sirup-60-ml.jpeg</item>
+        <item>https://lyrihkaesa.github.io/img/medicine/fluimucil-200-mg-10-kapsul.jpeg</item>
     </string-array>
 </resources>
